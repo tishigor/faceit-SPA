@@ -1,0 +1,39 @@
+// app global css in SCSS form
+
+main {
+  font-family: 'Rubik One', sans-serif;
+  //background-color: #e7e7e7;
+  //margin: 0px auto 0px;
+  //width: 50%;
+  //min-width: 450px;
+  //min-height: 800px;
+  //border-radius: 10px;
+  /*justify-content: center;*/
+  //display: flex;
+  //flex-direction: column;
+  //justify-content: space-between;
+  gap: 50px;
+}
+
+.rosters {
+  /*border: black solid;*/
+  padding: 10px;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: center;
+}
+
+.match-input {
+  display: flex;
+  flex-direction: column;
+  /*justify-content: center;*/
+}
+
+.roster {
+  margin: 20px;
+  /*background: orange;*/
+  /*padding: 10px;*/
+  /*margin-right: 20px;*/
+}
