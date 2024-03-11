@@ -3,9 +3,12 @@
     <q-header elevated>
       <q-toolbar>
         <q-toolbar-title>
-          Quasar App
+          Player Pinger
         </q-toolbar-title>
-        <div>Quasar v{{ $q.version }}</div>
+        <div class="q-pa-md row q-gutter-sm items-center">
+          <q-btn color="white" text-color="primary" label="Feedback" href="https://docs.google.com/forms/d/e/1FAIpQLSdZfz2YP1a2Mglj36wuzh8lNUTZBC2hwWYiyuaGrnZYIj-rlQ/viewform?usp=sf_link" target="_blank"/>
+          <div>v0.0.1</div>
+        </div>
       </q-toolbar>
     </q-header>
     <q-page-container>

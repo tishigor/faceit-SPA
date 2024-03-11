@@ -11,7 +11,7 @@ defineProps({
 
 <template>
   <div class="roster">
-    <p>{{name}}</p>
+    <p class="roster__name">{{name}}</p>
     <div class="q-pa-md items-start q-gutter-md">
       <PlayerComponent
         v-for="player in roster"
@@ -20,6 +20,7 @@ defineProps({
         :avatar="player.avatar"
         :level="player.game_skill_level"
         :nickname="player.nickname"
+        :game-player-name="player.game_player_name"
       />
       </div>
   </div>

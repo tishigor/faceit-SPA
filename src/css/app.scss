@@ -1,6 +1,7 @@
 // app global css in SCSS form
 
-main {
+
+.content{
   font-family: 'Rubik One', sans-serif;
   //background-color: #e7e7e7;
   //margin: 0px auto 0px;
@@ -9,10 +10,17 @@ main {
   //min-height: 800px;
   //border-radius: 10px;
   /*justify-content: center;*/
-  //display: flex;
-  //flex-direction: column;
+  display: flex;
+  font-weight: 100;
+  flex-direction: column;
   //justify-content: space-between;
-  gap: 50px;
+  //gap: 50px;
+}
+
+.copy-block{
+  align-items: center;
+  text-align: center;
+  padding-bottom: 20px;
 }
 
 .rosters {
@@ -28,6 +36,7 @@ main {
 .match-input {
   display: flex;
   flex-direction: column;
+  padding: 0px 10px 0px 50px;
   /*justify-content: center;*/
 }
 
@@ -36,4 +45,7 @@ main {
   /*background: orange;*/
   /*padding: 10px;*/
   /*margin-right: 20px;*/
+}
+.roster__name{
+ text-align: center;
 }

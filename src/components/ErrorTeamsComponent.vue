@@ -3,7 +3,6 @@
 const props = defineProps({
   textToCopy: String,
 });
-
 const copy = () => {
   // const textToCopy = '1-2464a08c-f58d-4c71-a0ab-bc70c3aed038'; // Замените на нужный текст
   const inputElement = document.createElement('input');
@@ -16,7 +15,7 @@ const copy = () => {
 </script>
 
 <template>
-  <h1 class="gradient-text">Обновленная версия<br/>нашумевшей проги</h1>
+  <h1 class="gradient-text">404 not found</h1>
   <h2 class="under-text">Введи match ID, например: </h2>
   <div class="copy-block">
     <text>{{ textToCopy }}</text>
