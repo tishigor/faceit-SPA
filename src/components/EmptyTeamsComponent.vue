@@ -5,7 +5,6 @@ const props = defineProps({
 });
 
 const copy = () => {
-  // const textToCopy = '1-2464a08c-f58d-4c71-a0ab-bc70c3aed038'; // Замените на нужный текст
   const inputElement = document.createElement('input');
   inputElement.value = props.textToCopy;
   document.body.appendChild(inputElement);

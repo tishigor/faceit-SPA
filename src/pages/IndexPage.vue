@@ -69,7 +69,7 @@ export default defineComponent({
     const requestError = ref(false);
     const teams = ref([]);
     const matchId = ref('');
-    const textToCopy = ref('1-db5d0683-b5fc-4889-8511-33e45451ace3');
+    const textToCopy = ref('1-4e1d879d-7933-4f73-bec6-5fa23c603399');
 
     const foo = async () => {
       requestError.value = false;

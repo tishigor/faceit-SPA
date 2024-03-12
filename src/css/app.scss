@@ -1,5 +1,8 @@
 // app global css in SCSS form
 
+body {
+  //background-color: #000000;
+}
 
 .content{
   font-family: 'Rubik One', sans-serif;
@@ -37,14 +40,15 @@
   display: flex;
   flex-direction: column;
   padding: 0px 10px 0px 50px;
-  /*justify-content: center;*/
+  //justify-content: center;
+}
+.count-games {
+  padding: 10px;
+  font-size: 12px;
 }
 
 .roster {
   margin: 20px;
-  /*background: orange;*/
-  /*padding: 10px;*/
-  /*margin-right: 20px;*/
 }
 .roster__name{
  text-align: center;

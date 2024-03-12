@@ -1,3 +1,4 @@
+// todo https://axios-http.com/docs/instance
 import axios from 'axios';
 
 const apiKey = import.meta.env.VITE_API_KEY;
@@ -18,9 +19,13 @@ export const fetchTeams = async (matchId) => {
   }
 };
 
+function checkWinner(item, playerId) {
+  const { winner } = item.results;
+  return !!item.teams[winner].players.find((el) => el.player_id === playerId);
+}
+
 export const fetchPlayer = async (playerId, twoWeeksAgoTimestamp) => {
   const url = import.meta.env.VITE_URL_PLAYER_HISTORY.replace('<player_id>', playerId);
-
   try {
     const response = await axios.get(url, {
       headers: {
@@ -31,15 +36,18 @@ export const fetchPlayer = async (playerId, twoWeeksAgoTimestamp) => {
         from: twoWeeksAgoTimestamp,
       },
     });
-
-    let countGames = 0;
+    const stats = {};
+    stats.allGames = 0;
+    stats.winnerGames = 0;
     response.data.items.forEach((item) => {
-      if (item.game_id === 'cs2' && item.competition_name === 'COMPETITIVE 5v5') {
-        countGames += 1;
+      if (item.game_id === 'cs2' && item.competition_name === 'COMPETITIVE 5v5' && item.status === 'finished') {
+        stats.allGames += 1;
+        const winner = checkWinner(item, playerId);
+        if (winner) stats.winnerGames++;
       }
     });
-
-    return countGames;
+    stats.loserGames = stats.allGames - stats.winnerGames;
+    return stats;
   } catch (error) {
     console.log(error);
     throw error;
