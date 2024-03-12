@@ -9,43 +9,52 @@
 <!--    <div class="q-pa-md row items-start q-gutter-md">-->
 <!---->
 <!--    </div>-->
-<div class="content">
-  <ErrorTeamsComponent v-if="requestError" :textToCopy/>
-  <TableLoaderComponent v-else-if="loading"/>
-  <EmptyTeamsComponent v-else-if="teams.length === 0" :textToCopy/>
+    <div class="content">
+      <ErrorTeamsComponent v-if="requestError" :textToCopy/>
+      <TableLoaderComponent v-else-if="loading"/>
+      <EmptyTeamsComponent v-else-if="teams.length === 0" :textToCopy/>
+      <TeamListComponent v-else
+                         :teams="teams"
+                         :loading />
 
-  <TeamListComponent v-else :teams="teams" :loading="loading" />
-
-  <div class="match-input">
-    <q-input filled
-             bottom-slots
-             v-model="matchId"
-             label="match ID или URL"
-             counter
-             maxlength="38"
-             @keyup.ctrl.enter="()=>foo(matchId)"
-             @keyup.shift="clearTeams"
-             hint="Ссылка на матч тоже подойдет(пока что нет)"
-             :dense="dense">
-      <template v-slot:append>
-        <q-icon v-if="matchId !== ''" name="close" @click="matchId = ''" class="cursor-pointer" />
-      </template>
-      <template v-slot:after>
-        <q-btn round dense flat icon="send" @click="foo()"/>
-      </template>
-    </q-input>
-  </div>
-</div>
+      <div class="match-input">
+        <q-input filled
+                 bottom-slots
+                 v-model="matchId"
+                 label="match ID или URL"
+                 counter
+                 maxlength="38"
+                 @keyup.ctrl.enter="()=>foo(matchId)"
+                 @keyup.shift="clearInput"
+                 hint="Ссылка на матч тоже подойдет(пока что нет)"
+                 :dense="dense">
+          <template v-slot:append>
+            <q-icon v-if="matchId !== ''"
+                    name="close"
+                    @click="clearInput"
+                    class="cursor-pointer" />
+          </template>
+          <template v-slot:after>
+            <q-btn
+              round
+              dense
+              flat
+              icon="send"
+              @click="foo()"/>
+          </template>
+        </q-input>
+      </div>
+    </div>
   </q-page>
 </template>
 
 <script>
 import { defineComponent, ref } from 'vue';
-import axios from 'axios';
 import TableLoaderComponent from 'components/TableLoaderComponent.vue';
 import EmptyTeamsComponent from 'components/EmptyTeamsComponent.vue';
 import TeamListComponent from 'components/TeamListComponent.vue';
 import ErrorTeamsComponent from 'components/ErrorTeamsComponent.vue';
+import { fetchTeams } from '../utils/api';
 
 export default defineComponent({
   name: 'IndexPage',
@@ -65,16 +74,8 @@ export default defineComponent({
     const foo = async () => {
       requestError.value = false;
       loading.value = true;
-      const root = import.meta.env.VITE_URL_MATCH;
-      const url = root + matchId.value;
-      const apiKey = import.meta.env.VITE_API_KEY;
       try {
-        const response = await axios.get(url, {
-          headers: {
-            Authorization: `Bearer ${apiKey}`,
-          },
-        });
-        teams.value = response.data.teams;
+        teams.value = await fetchTeams(matchId.value);
       } catch (error) {
         teams.value = [];
         requestError.value = true;
@@ -84,7 +85,9 @@ export default defineComponent({
       }
     };
 
-    const clearTeams = () => {
+    const clearInput = () => {
+      requestError.value = false;
+      matchId.value = '';
       teams.value = [];
     };
 
@@ -97,7 +100,7 @@ export default defineComponent({
       text: ref(''),
       dense: ref(false),
       foo,
-      clearTeams,
+      clearInput,
     };
   },
 });

@@ -1,7 +1,6 @@
 <script setup>
-
-import axios from 'axios';
 import { onMounted, ref } from 'vue';
+import { fetchPlayer } from '../utils/api';
 
 const props = defineProps({
   player_id: String,
@@ -15,42 +14,17 @@ const props = defineProps({
 const countGames = ref(0);
 
 onMounted(async () => {
-  const url = import.meta.env.VITE_URL_PLAYER_HISTORY.replace('<player_id>', props.player_id);
-  const apiKey = import.meta.env.VITE_API_KEY;
-
   const twoWeeksAgo = new Date();
   twoWeeksAgo.setDate(twoWeeksAgo.getDate() - 14);
   const twoWeeksAgoTimestamp = Math.floor(twoWeeksAgo.getTime() / 1000);
-
-  // получил игры игрока
-  axios.get(url, {
-    headers: {
-      Authorization: `Bearer ${apiKey}`,
-    },
-    params: {
-      limit: 100,
-      from: twoWeeksAgoTimestamp,
-    },
-  })
-    .then((response) => {
-      // console.log(response.data.items.length);
-      // console.log(response);
-      // считаю игры игрока
-      response.data.items.forEach((item) => {
-        if (item.game_id === 'cs2' && item.competition_name === 'COMPETITIVE 5v5') {
-          countGames.value += 1;
-          // console.log(Object.values(item.teams.faction1.players));
-        }
-      });
-    })
-    .catch((error) => {
-      console.log(error);
-    })
-    .finally(() => {
-      // loadingPlayer.value = false;
-    });
+  try {
+    countGames.value = await fetchPlayer(props.player_id, twoWeeksAgoTimestamp);
+  } catch (error) {
+    console.log(error);
+  } finally {
+    // loadingPlayer.value = false;
+  }
 });
-
 </script>
 
 <template>
@@ -59,6 +33,7 @@ onMounted(async () => {
       <q-item-section avatar>
         <q-avatar>
           <img v-if="avatar" :src="avatar" alt="avatar">
+<!--          todo-->
           <q-avatar v-else color="primary" text-color="white">
             {{ nickname[0].toUpperCase() }}</q-avatar>
 
