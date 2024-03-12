@@ -43,7 +43,7 @@ const copy = () => {
   margin: 0 auto;
   text-transform: uppercase;
   text-align: center;
-  background: linear-gradient(315deg, #0B2349 0%, #0D61BC 50%, #8AA9D6);
+  background: linear-gradient(30deg, #133c7e 0%, #0D61BC 50%, #8AA9D6);
   //border: #1D1D1D solid;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -58,7 +58,7 @@ const copy = () => {
   font-weight: 100;
   margin: 0 auto;
   text-align: center;
-  background: linear-gradient(315deg, #0B2349 0%, #0D61BC 50%, #8AA9D6);
+  background: linear-gradient(30deg, #133c7e -100%, #0D61BC 50%, #8AA9D6);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   //padding-bottom: 10px;
